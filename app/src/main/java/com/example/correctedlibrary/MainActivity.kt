@@ -2,47 +2,42 @@ package com.example.correctedlibrary
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.correctedlibrary.Greeting
-import com.example.correctedlibrary.ui.theme.CorrectedLibraryTheme
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.correctedlibrary.databinding.ActivityMainBinding
 class MainActivity : ComponentActivity() {
+    private val itemAdapter = ItemAdapter()
+    private  val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            CorrectedLibraryTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+        setContentView(binding.root)
+
+        with(binding.recyclerView)
+        {
+            layoutManager = LinearLayoutManager(context)
+            adapter = itemAdapter
+        }
+
+        itemAdapter.setNewData(createLibrary())
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
+private fun createLibrary():List<Item>
+{
+
+    val book1: Book = Book(1, "mybook1", "I", 20, true, R.drawable.book_image)
+    val dvd1: Disk = Disk(2, "diisk1", "DVD", false, R.drawable.disk_image)
+    val dvd2: Disk = Disk(22, "diisk2", "СD", true, R.drawable.disk_image)
+    val dvd3: Disk = Disk(23, "diisk3", "DVD", true, R.drawable.disk_image)
+    val news1: Newspaper = Newspaper(31, "news1", 412, "April", true, R.drawable.newspaper_image)
+    val news2: Newspaper = Newspaper(32, "news2", 412, "March", true, R.drawable.newspaper_image)
+    val news3: Newspaper = Newspaper(33, "news3", 412, "June", true, R.drawable.newspaper_image)
+    val book2: Book = Book(12, "mybook2", "I", 20, false, R.drawable.book_image)
+    val book3: Book = Book(123, "mybook3", "I", 20, true, R.drawable.book_image)
+
+    val itemList: MutableList<Item> = mutableListOf(
+        book1, book2, book3, dvd1, dvd2, dvd3, news1, news2, news3
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CorrectedLibraryTheme {
-        Greeting("Android")
-    }
+    return itemList
 }

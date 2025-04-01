@@ -20,8 +20,8 @@ class MainActivity : ComponentActivity() {
         }
 
         itemAdapter.setNewData(createLibrary())
-        }
     }
+}
 
 private fun createLibrary():List<Item>
 {

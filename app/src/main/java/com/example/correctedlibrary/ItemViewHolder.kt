@@ -20,15 +20,15 @@ class ItemViewHolder(private val binding: LibraryItemBinding) :
                 cardView.elevation = 1f
             } else {
                 itemId.alpha = 1f
-                itemName.alpha=1f
+                itemName.alpha = 1f
                 cardView.elevation = 10f
             }
 
         }
 
 
-        }
-
     }
+
+}
 
 
